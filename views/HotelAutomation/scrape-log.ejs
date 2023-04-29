@@ -1,0 +1,71 @@
+<%- contentFor('HeaderCss') %>
+
+<!-- Responsive Table css -->
+<link href="public/assets/libs/admin-resources/rwd-table/rwd-table.min.css" rel="stylesheet" type="text/css" />
+
+<%- contentFor('breadcrumb') %>
+
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0">Scrape Logs</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Scrape Log</a></li>
+                    <li class="breadcrumb-item active">InternalLinkMonitor</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<%- contentFor('body') %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <p class="card-title-desc">Summary of all scrapes.</p>
+
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table">
+                            <thead>
+                            <tr>
+                                <th>Scrape Start Timestamp</th>
+                                <th>Scrape End Timestamp</th>
+                                <th>Scrape Runtime In Hours</th>
+                                <th>Scrape Region</th>
+                                <th>Scrape City</th>
+                                <th>NightsOfStayParam</th>
+                                <th>AdultParam</th>
+                                <th>Scrape Id</th>
+                            </tr>
+                            </thead>
+                           <tbody id="logRows">
+
+                           </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+<%- contentFor('FooterJs') %>
+
+<!-- Responsive Table js -->
+<script src="public/assets/libs/admin-resources/rwd-table/rwd-table.min.js"></script>
+
+<!-- Init js -->
+<script src="public/assets/js/pages/table-responsive.init.js"></script>
+
+<%- contentFor('BottomJs') %>

@@ -1,0 +1,16 @@
+CREATE TABLE `scrapeschedule` (
+`ID` INT AUTO_INCREMENT NOT NULL,
+`ScrapeRegion` LONGTEXT NULL,
+`InputCity` LONGTEXT NULL,
+`HoursToWaitBetweenRuns` LONGTEXT NULL,
+`WeekdaysToRun` LONGTEXT NULL,
+`MinimumStartDate` LONGTEXT NULL,
+`MaximumStartDate` LONGTEXT NULL,
+`MaximumJobRuns` LONGTEXT NULL,
+`ScrapeSource` LONGTEXT NULL,
+`AdultParam` LONGTEXT NULL,
+`NightsOfStayParam` LONGTEXT NULL,
+`ScrapePosition` LONGTEXT NULL,
+`ScrapeId` LONGTEXT NULL,
+`HexColor` LONGTEXT NULL,
+PRIMARY KEY (`ID` ASC));

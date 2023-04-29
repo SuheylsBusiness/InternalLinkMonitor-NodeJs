@@ -1,0 +1,4 @@
+CREATE TABLE `scrapecontrol` (
+`ID` INT AUTO_INCREMENT NOT NULL,
+`ScrapeStatus` LONGTEXT NULL,
+PRIMARY KEY (`ID` ASC));

@@ -1,0 +1,147 @@
+<%- contentFor('HeaderCss') %>
+
+<!-- select2 css -->
+<link href="public/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+<!-- dropzone css -->
+<link href="public/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
+
+<%- contentFor('breadcrumb') %>
+<style>
+  #pauserScraper,
+  #stopScraper,
+  #resumeScraper,
+  #startScraper {
+    margin-top: 6px;
+  }
+</style>
+<!-- start page title -->
+<div class="row">
+  <div class="col-12">
+    <div class="page-title-box d-flex align-items-center justify-content-between">
+      <h4 class="mb-0">Dashboard</h4>
+
+      <div class="page-title-right">
+        <ol class="breadcrumb m-0">
+          <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+          <li class="breadcrumb-item active">InternalLinkMonitor</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end page title -->
+
+<%- contentFor('body') %>
+
+<div class="row">
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Start Request</h4>
+        <p class="card-title-desc">Enter a single URL below to start a scrape-request.</p>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="mb-3">
+                <label class="form-label" for="urlInput">URL</label>
+                <input type="text" class="form-control" id="urlInput" name="urlInput" placeholder="Enter URL (Ex.: https://suheylsbusiness.com/)" value="" />
+                <div class="valid-feedback" id="feedback">
+                  Looks good, request sent!
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit" id="sendRequest">Send Request</button>
+      </div>
+    </div>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+<div class="row">
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Output</h4>
+        <p class="card-title-desc" id="outputBox">Output Will Appear Here..</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- contentFor('FooterJs') %>
+
+<script>
+      window.addEventListener("load", async () => {
+    try {
+      const latestJobResponse = await fetch("/jobsToProcess/latest");
+      const latestJobData = await latestJobResponse.json();
+      document.getElementById("outputBox").innerHTML = latestJobData.OutputHTML;
+    } catch (error) {
+      console.error(error);
+      document.getElementById("outputBox").textContent = "Error retrieving latest job.";
+    }
+  });
+  
+    document.getElementById("sendRequest").addEventListener("click", async (event) => {
+      try {
+        const url = document.getElementById("urlInput").value;
+        const isCompleted = 0;
+        const guid = generateGuid();
+        const outputHTML = "";
+        const timestamp = new Date().toISOString();
+        
+        const response = await fetch("/jobsToProcess", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            Url: url,
+            IsCompleted: isCompleted,
+            Guid: guid,
+            OutputHTML: outputHTML,
+            Timestamp: timestamp
+          })
+        });
+  
+        if (response.ok) {
+          document.getElementById("feedback").textContent = "Request sent!";
+          document.getElementById("feedback").classList.add("valid-feedback");
+          document.getElementById("feedback").classList.remove("invalid-feedback");
+        } else {
+          document.getElementById("feedback").textContent = "Request failed.";
+          document.getElementById("feedback").classList.add("invalid-feedback");
+          document.getElementById("feedback").classList.remove("valid-feedback");
+        }
+        
+      } catch (error) {
+        console.error(error);
+        document.getElementById("feedback").textContent = "Error sending request.";
+        document.getElementById("feedback").classList.add("invalid-feedback");
+        document.getElementById("feedback").classList.remove("valid-feedback");
+      }
+    });
+  
+    function generateGuid() {
+      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+        var r = (Math.random() * 16) | 0,
+          v = c == "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      });
+    }
+  </script>
+  
+<script src="public/assets/libs/apexcharts/apexcharts.min.js"></script>
+<script src="public/assets/js/pages/dashboard.init.js"></script>
+
+<!-- select 2 plugin -->
+<script src="public/assets/libs/select2/js/select2.min.js"></script>
+
+<!-- dropzone plugin -->
+<script src="public/assets/libs/dropzone/min/dropzone.min.js"></script>
+
+<!-- init js -->
+<script src="public/assets/js/pages/ecommerce-add-product.init.js"></script>
+
+<%- contentFor('BottomJs') %>

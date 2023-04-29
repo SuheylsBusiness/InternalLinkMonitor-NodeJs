@@ -1,0 +1,10 @@
+CREATE TABLE `runningscrapesreport` (
+`ID` INT AUTO_INCREMENT NOT NULL,
+`Timestamp` LONGTEXT NULL,
+`IsScrapeRunning` LONGTEXT NULL,
+`ScrapeStartTimestamp` LONGTEXT NULL,
+`RegionThatIsRunning` LONGTEXT NULL,
+`CityThatIsRunning` LONGTEXT NULL,
+`ScrapeProgress` LONGTEXT NULL,
+`ScrapeId` LONGTEXT NULL,
+PRIMARY KEY (`ID` ASC));

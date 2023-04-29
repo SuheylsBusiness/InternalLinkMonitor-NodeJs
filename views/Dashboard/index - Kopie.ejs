@@ -1,0 +1,398 @@
+<%- contentFor('HeaderCss') %>
+
+    <!-- select2 css -->
+    <link href="public/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- dropzone css -->
+    <link href="public/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
+
+    <%- contentFor('breadcrumb') %>
+        <style>
+            #pauserScraper,
+            #stopScraper,
+            #resumeScraper,
+            #startScraper {
+                margin-top: 6px;
+            }
+        </style>
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0">Dashboard</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                            <li class="breadcrumb-item active">InternalLinkMonitor</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <%- contentFor('body') %>
+            <div class="card">
+                <a href="#addproduct-img-collapse" class="text-dark" data-bs-toggle="collapse" aria-haspopup="true"
+                    aria-expanded="true" aria-controls="addproduct-img-collapse">
+                    <div class="p-4">
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="flex-1 overflow-hidden">
+                                <h5 class="font-size-16 mb-1">Upload Files</h5>
+                                <p class="text-muted text-truncate mb-0">Files that will be analyzed</p>
+                            </div>
+                            <i class="mdi mdi-chevron-up accor-down-icon font-size-24"></i>
+                        </div>
+
+                    </div>
+                </a>
+
+                <div id="addproduct-img-collapse" class="collapse show" data-bs-parent="#addproduct-accordion" style="">
+                    <div class="p-4 border-top">
+                        <input name="file" id="filesUploaded" type="file" multiple="multiple">
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <a href="#addproduct-img-collapse" class="text-dark" data-bs-toggle="collapse" aria-haspopup="true"
+                    aria-expanded="true" aria-controls="addproduct-img-collapse">
+                    <div class="p-4">
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="flex-1 overflow-hidden">
+                                <h5 class="font-size-16 mb-1">Upload Forex Factory HTML File</h5>
+                                <p class="text-muted text-truncate mb-0">Upload the browser downloaded HTML file from
+                                    the forex factory home page</p>
+                            </div>
+                            <i class="mdi mdi-chevron-up accor-down-icon font-size-24"></i>
+                        </div>
+
+                    </div>
+                </a>
+
+                <div id="addproduct-img-collapse" class="collapse show" data-bs-parent="#addproduct-accordion" style="">
+                    <div class="p-4 border-top">
+                        <input name="file" id="forexFactoryFile" type="file">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <a href="#" class="btn btn-success" id="processBtn"> <i class="uil uil-file-alt me-1"></i> Analyze
+                        Data
+                    </a>
+                </div> <!-- end col -->
+            </div>
+            <div class="col-xl">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Analyze Output</h4>
+                        <p class="card-title-desc">Click <code class="highlighter-rouge">Process</code> to check files.
+                        </p>
+
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <i class="uil uil-pen font-size-16 text-secondary me-2"
+                                            id="hftViolationImg"></i>
+                                        HFT Violation
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                    data-bs-parent="#accordionExample" style="">
+                                    <div class="accordion-body" id="hftViolation">
+                                        -
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <i class="uil uil-pen font-size-16 text-secondary me-2"
+                                            id="tickScalpingViolationImg"></i>
+                                        Tick Scalping Violation
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                    data-bs-parent="#accordionExample" style="">
+                                    <div class="accordion-body" id="tickScalpingViolation">
+                                        -
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="uil uil-pen font-size-16 text-secondary me-2"
+                                            id="highImpactViolationImg"></i>
+                                        High Impact News Violation
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample" style="">
+                                    <div class="accordion-body" id="highImpactViolation">
+                                        -
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="uil uil-pen font-size-16 text-secondary me-2"
+                                            id="highImpactViolationImg"></i>
+                                        High Impact News and Account Hedging Violations
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample" style="">
+                                    <div class="accordion-body" id="highImpactViolation">
+                                        -
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <%- contentFor('FooterJs') %>
+
+                <script>
+                    function addSpaceAfterAmPm(str) {
+                        var str2 = "";
+                        if (str.includes("am")) {
+                            str2 = str.replace("am", " am");
+                        }
+                        if (str.includes("pm")) {
+                            str2 = str.replace("pm", " pm");
+                        }
+
+                        return str2; // If "am" or "pm" was not found, return the original string
+                    }
+
+                    function parseDateTime(date, time) {
+                        const month = {
+                            "Jan": "January",
+                            "Feb": "February",
+                            "Mar": "March",
+                            "Apr": "April",
+                            "May": "May",
+                            "Jun": "June",
+                            "Jul": "July",
+                            "Aug": "August",
+                            "Sep": "September",
+                            "Oct": "October",
+                            "Nov": "November",
+                            "Dec": "December"
+                        };
+
+                        const days = {
+                            "Mon": "Monday",
+                            "Tue": "Tuesday",
+                            "Wed": "Wednesday",
+                            "Thu": "Thursday",
+                            "Fri": "Friday",
+                            "Sat": "Saturday",
+                            "Sun": "Sunday"
+                        };
+
+                        const getDatePart = (date, dict) => {
+                            const keys = Object.keys(dict);
+                            for (let i = 0; i < keys.length; i++) {
+                                if (date.includes(keys[i])) {
+                                    return dict[keys[i]];
+                                }
+                            }
+                            return "";
+                        }
+
+                        const day = getDatePart(date, days);
+                        const monthName = getDatePart(date, month);
+                        const dayOfMonth = parseInt(date.substring(date.length - 2));
+                        var dateStr = `${day}, ${monthName}, ${dayOfMonth}, 2023, ${addSpaceAfterAmPm(time)}`;
+                        var date = new Date(dateStr);
+
+                        return { dateStr, date };
+                    }
+
+                    const processBtn = document.querySelector('#processBtn');
+                    const outputElement = document.querySelector('.card-title-desc');
+
+                    processBtn.addEventListener('click', async (event) => {
+                        document.getElementById("hftViolationImg").classList = "uil uil-check font-size-16 text-success me-2";
+                        document.getElementById("tickScalpingViolationImg").classList = "uil uil-check font-size-16 text-success me-2";
+                        document.getElementById("highImpactViolationImg").classList = "uil uil-check font-size-16 text-success me-2";
+
+                        event.preventDefault();
+                        const files = document.querySelector('#filesUploaded').files;
+                        const forexFactoryFile = document.querySelector('#forexFactoryFile').files[0];
+
+                        const forexFileContent = await readFileAsText(forexFactoryFile);
+                        const forexHtml = new DOMParser().parseFromString(forexFileContent, "text/html");
+
+                        const trades = await parseTrades(files);
+                        const news = parseNews(forexHtml);
+
+                        processTrades(trades, news);
+                    });
+
+                    async function readFileAsText(file) {
+                        return new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.onload = () => resolve(reader.result);
+                            reader.onerror = reject;
+                            reader.readAsText(file);
+                        });
+                    }
+
+                    async function parseTrades(files) {
+                        const trades = [];
+                        for (let i = 0; i < files.length; i++) {
+                            const fileContent = await readFileAsText(files[i]);
+                            const html = new DOMParser().parseFromString(fileContent, "text/html");
+                            const rows = html.querySelector("table").querySelectorAll("tr:not(:first-child)");
+                            let dealsTableHasCome = false;
+                            var firstNumber = html.querySelector("body > div > table > tbody > tr:nth-child(3) > th:nth-child(2)").textContent.match(/\d+/)[0];
+
+                            rows.forEach((row) => {
+                                const rowOuterHtml = row.outerHTML;
+                                if (rowOuterHtml.includes('<b>Deals</b>')) { dealsTableHasCome = true; }
+                                if ((rowOuterHtml.includes("#F7F7F7") || rowOuterHtml.includes("#FFFFFF")) && rowOuterHtml.includes('align="right"') && dealsTableHasCome) {
+                                    const cells = row.querySelectorAll("td");
+                                    const trade = {
+                                        time: cells[0].textContent.trim(),
+                                        position: cells[1].textContent.trim(),
+                                        symbol: cells[2].textContent.trim(),
+                                        type: cells[3].textContent.trim(),
+                                        volume: cells[4].textContent.trim(),
+                                        price: cells[5].textContent.trim(),
+                                        sl: cells[6].textContent.trim(),
+                                        tp: cells[7].textContent.trim(),
+                                        time2: cells[8].textContent.trim(),
+                                        price2: cells[9].textContent.trim(),
+                                        commission: cells[10].textContent.trim(),
+                                        swap: cells[11].textContent.trim(),
+                                        profit: cells[13].textContent.trim(),
+                                        dateTime: new Date(cells[0].textContent.trim()),
+                                        accountNum: firstNumber,
+                                    };
+                                    trades.push(trade);
+                                }
+                            });
+                        }
+                        return trades;
+                    }
+
+                    function parseNews(forexHtml) {
+                        const news = [];
+                        const rows = forexHtml.querySelectorAll('table[class="calendar__table  "] > tbody > tr[data-touchable]');
+                        let lastDate = "";
+                        rows.forEach((row) => {
+                            const date = row.querySelector('.calendar__date.date').textContent.trim();
+                            const time = row.querySelector('.calendar__time.time').textContent.trim();
+                            if (date) { lastDate = date; }
+                            if (time) {
+                                const dateTime = parseDateTime(lastDate, time);
+                                if (dateTime.date <= new Date()) {
+                                    const rowData = {
+                                        dateTime,
+                                        lastDate,
+                                        time,
+                                    };
+                                    news.push(rowData);
+                                }
+                            }
+                        });
+                        return news;
+                    }
+                    function processTrades(trades, news) {
+                        let html = [];
+                        var highImpactNewsViolation = [];
+                        var tickScalpingViolation = [];
+                        var accountHedgingViolations = new Map();
+
+                        for (let i = 0; i < trades.length; i++) {
+                            const trade = trades[i];
+                            const tradeTime = trade.dateTime.getTime();
+                            const hedgingMatches = trades.slice(i + 1).filter(otherTrade =>
+                                otherTrade.dateTime.getTime() - tradeTime <= 120000 && trade.symbol === otherTrade.symbol
+                            );
+
+                            if (hedgingMatches.length >= 4) {
+                                const accountNumbers = [trade.accountNum, ...hedgingMatches.map(match => match.accountNum)].sort();
+                                const accountString = accountNumbers.join(",");
+
+                                if (accountHedgingViolations.has(accountString)) {
+                                    accountHedgingViolations.get(accountString).trades.push(trade.position, ...hedgingMatches.map(match => match.position));
+                                } else {
+                                    accountHedgingViolations.set(accountString, { accounts: accountNumbers, trades: [trade.position, ...hedgingMatches.map(match => match.position)] });
+                                }
+                            }
+
+                            const violations = news.filter(event => Math.abs(event.dateTime.date.getTime() + 2 * 60 * 60 * 1000 - tradeTime) <= 120000);
+                            if (violations.length > 0) {
+                                console.log(`<li>Trade ${trade.position} violates the news rule (2 minute before/after news publication rule).</li>`);
+                                html.push(`<li>Trade ${trade.position} violates the news rule (2 minute before/after news publication rule).</li>`);
+                                highImpactNewsViolation.push(`<li>Account Number: ${trade.accountNum} Trade ${trade.position} violates the news rule (2 minute before/after news publication rule).</li>`);
+                            }
+
+                            if (hedgingMatches.length > 0) {
+                                const hedgingMessage = `<li>Trade ${trade.position} and ${hedgingMatches.map(match => match.position).join(" and ")} violate the account hedging rule (same currency pair, opened and closed within 2 minutes, and occurred at least 5 times across multiple accounts).</li>`;
+                                console.log(hedgingMessage);
+                                html.push(hedgingMessage);
+                                tickScalpingViolation.push(`<li>Account Number: ${trade.accountNum} ${hedgingMessage}</li>`);
+                            }
+                        }
+
+                        if (highImpactNewsViolation.length > 0) {
+                            document.getElementById("highImpactViolationImg").classList = "uil uil-exclamation-octagon font-size-16 text-danger me-2";
+                            document.getElementById('highImpactViolation').innerHTML = `<ul>${highImpactNewsViolation.join('')}</ul>`;
+                        }
+
+                        if (accountHedgingViolations.size > 0) {
+                            const hedgingMessages = Array.from(accountHedgingViolations.values()).map(violation => {
+                                const accountMessage = `<li>Accounts ${violation.accounts.join(" and ")} had the following trades occur within 2 minutes of each other: ${violation.trades.join(", ")}</li>`;
+                                console.log(accountMessage);
+                                return accountMessage;
+                            });
+
+                            document.getElementById("accountHedgingViolationImg").classList = "uil uil-exclamation-octagon font-size-16 text-danger me-2";
+                            document.getElementById('accountHedgingViolation').innerHTML = `<ul>${hedgingMessages.join('')}</ul>`;
+                        }
+                    }
+
+
+                </script>
+                <script src="public/assets/libs/apexcharts/apexcharts.min.js"></script>
+                <script src="public/assets/js/pages/dashboard.init.js"></script>
+
+                <!-- select 2 plugin -->
+                <script src="public/assets/libs/select2/js/select2.min.js"></script>
+
+                <!-- dropzone plugin -->
+                <script src="public/assets/libs/dropzone/min/dropzone.min.js"></script>
+
+                <!-- init js -->
+                <script src="public/assets/js/pages/ecommerce-add-product.init.js"></script>
+
+                <%- contentFor('BottomJs') %>
+
+                    <script>
+
+                    </script>
