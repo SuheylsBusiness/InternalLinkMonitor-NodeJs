@@ -8,11 +8,7 @@ const { count } = require("console");
 
 module.exports = async function () {
     let tablesToHave =
-        [{ "TableName": "ScrapeSchedule", "CreationScript": fs.readFileSync(path.resolve() + "/controllers/CreateTableScripts/ScrapeSchedule.txt", 'utf8') },
-        { "TableName": "RunningScrapesReport", "CreationScript": fs.readFileSync(path.resolve() + "/controllers/CreateTableScripts/RunningScrapesReport.txt", 'utf8') },
-        { "TableName": "ScrapeLog", "CreationScript": fs.readFileSync(path.resolve() + "/controllers/CreateTableScripts/ScrapeLog.txt", 'utf8') },
-        { "TableName": "Log", "CreationScript": fs.readFileSync(path.resolve() + "/controllers/CreateTableScripts/Log.txt", 'utf8') },
-        { "TableName": "ScrapeControl", "CreationScript": fs.readFileSync(path.resolve() + "/controllers/CreateTableScripts/ScrapeControl.txt", 'utf8') },
+        [
         { "TableName": "JobsToProcess", "CreationScript": fs.readFileSync(path.resolve() + "/controllers/CreateTableScripts/JobsToProcess.txt", 'utf8') }
         ];
     var [tablesThatExist, _] = await db.execute(`SELECT table_name FROM information_schema.tables WHERE table_schema = '${process.env.DB_NAME}';`);

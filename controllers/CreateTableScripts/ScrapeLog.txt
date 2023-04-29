@@ -1,7 +1,0 @@
-CREATE TABLE `scrapelog` (
-`ID` INT AUTO_INCREMENT NOT NULL,
-`ScrapeStart_Timestamp` LONGTEXT NULL,
-`ScrapeEnd_Timestamp` LONGTEXT NULL,
-`ScrapeRuntimeInHours` LONGTEXT NULL,
-`ScrapeId` LONGTEXT NULL,
-PRIMARY KEY (`ID` ASC));

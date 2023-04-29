@@ -60,10 +60,12 @@
 </div>
 <div class="row">
   <div class="col-xl-6">
-    <div class="card">
-      <div class="card-body">
+    <div class="card" style=" height: 1120px; width: 1050px; ">
+      <div class="card-body" >
         <h4 class="card-title">Output</h4>
-        <p class="card-title-desc" id="outputBox">Output Will Appear Here..</p>
+        <p class="card-title-desc" id="outputBox">The Latest Output Of Your Request Will Always Appear Here..</p>
+        <iframe id="outputFrame" style=" height: 1000px; width: 1000px; "></iframe>
+
       </div>
     </div>
   </div>
@@ -72,56 +74,81 @@
 <%- contentFor('FooterJs') %>
 
 <script>
-      window.addEventListener("load", async () => {
-    try {
-      const latestJobResponse = await fetch("/jobsToProcess/latest");
-      const latestJobData = await latestJobResponse.json();
-      document.getElementById("outputBox").innerHTML = latestJobData.OutputHTML;
-    } catch (error) {
-      console.error(error);
-      document.getElementById("outputBox").textContent = "Error retrieving latest job.";
-    }
-  });
-  
-    document.getElementById("sendRequest").addEventListener("click", async (event) => {
+   window.addEventListener("load", async () => {
+  try {
+    const latestJobResponse = await fetch("/api/jobsToProcess/latest");
+    const latestJobData = await latestJobResponse.json();
+    const outputBox = document.getElementById("outputBox");
+    const outputFrame = document.getElementById("outputFrame");
+    const outputHTML = latestJobData.OutputHTML;
+    const outputBlob = new Blob([outputHTML], { type: "text/html" });
+    const outputUrl = URL.createObjectURL(outputBlob);
+    outputFrame.src = outputUrl;
+  } catch (error) {
+    console.error(error);
+    document.getElementById("outputBox").textContent = "Nothing yet.";
+  }
+});
+
+  document.getElementById("sendRequest").addEventListener("click", async (event) => {
+  try {
+    const url = document.getElementById("urlInput").value;
+    const isCompleted = 0;
+    const guid = generateGuid();
+    const outputHTML = "";
+    const timestamp = new Date().toISOString();
+
+    const isValidUrl = (string) => {
       try {
-        const url = document.getElementById("urlInput").value;
-        const isCompleted = 0;
-        const guid = generateGuid();
-        const outputHTML = "";
-        const timestamp = new Date().toISOString();
-        
-        const response = await fetch("/jobsToProcess", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            Url: url,
-            IsCompleted: isCompleted,
-            Guid: guid,
-            OutputHTML: outputHTML,
-            Timestamp: timestamp
-          })
-        });
-  
-        if (response.ok) {
-          document.getElementById("feedback").textContent = "Request sent!";
-          document.getElementById("feedback").classList.add("valid-feedback");
-          document.getElementById("feedback").classList.remove("invalid-feedback");
-        } else {
-          document.getElementById("feedback").textContent = "Request failed.";
-          document.getElementById("feedback").classList.add("invalid-feedback");
-          document.getElementById("feedback").classList.remove("valid-feedback");
-        }
-        
-      } catch (error) {
-        console.error(error);
-        document.getElementById("feedback").textContent = "Error sending request.";
-        document.getElementById("feedback").classList.add("invalid-feedback");
-        document.getElementById("feedback").classList.remove("valid-feedback");
+        new URL(string);
+        return true;
+      } catch (_) {
+        return false;
       }
-    });
+    };
+
+    const feedbackElement = document.getElementById("feedback");
+
+    if (url.length >= 10 && isValidUrl(url)) {
+      const response = await fetch("/api/jobsToProcess", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          Url: url,
+          IsCompleted: isCompleted,
+          Guid: guid,
+          OutputHTML: outputHTML,
+          Timestamp: timestamp
+        })
+      });
+
+      if (response.ok) {
+        feedbackElement.style.display = "block";
+        feedbackElement.textContent = "Request sent (Can take up to 2 minutes, always refresh page!)";
+        feedbackElement.classList.add("valid-feedback");
+        feedbackElement.classList.remove("invalid-feedback");
+      } else {
+        feedbackElement.style.display = "block";
+        feedbackElement.textContent = "Request failed.";
+        feedbackElement.classList.add("invalid-feedback");
+        feedbackElement.classList.remove("valid-feedback");
+      }
+    } else {
+      feedbackElement.style.display = "block";
+      feedbackElement.textContent = "Invalid URL. Please enter a valid URL with at least 10 characters.";
+      feedbackElement.classList.add("invalid-feedback");
+      feedbackElement.classList.remove("valid-feedback");
+    }
+  } catch (error) {
+    console.error(error);
+    document.getElementById("feedback").textContent = "Error sending request.";
+    document.getElementById("feedback").classList.add("invalid-feedback");
+    document.getElementById("feedback").classList.remove("valid-feedback");
+  }
+});
+
   
     function generateGuid() {
       return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {

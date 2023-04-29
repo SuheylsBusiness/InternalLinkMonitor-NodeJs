@@ -59,7 +59,7 @@ class JobsToProcess {
   static async getLatestRecord() {
     try {
       const [latestRecord, _] = await db.execute(
-        "SELECT * FROM jobstoprocess ORDER BY ID DESC LIMIT 1"
+        "SELECT * FROM jobstoprocess WHERE IsCompleted = '1' AND LENGTH(OutputHTML) > 2 ORDER BY ID DESC LIMIT 1"
       );
       return latestRecord[0];
     } catch (error) {
@@ -67,6 +67,7 @@ class JobsToProcess {
       return null;
     }
   }
+  
 }
 
 module.exports = JobsToProcess;
